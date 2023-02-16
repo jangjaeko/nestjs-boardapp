@@ -12,6 +12,7 @@ import {
 import { BoardsService } from './boards.service';
 import { Board, BoardStatus } from './boards.model';
 import { CreateBoardDto } from './DTO/create-board.dto';
+import { BoardStatusValidationPipe } from './Pipes/Board-Status-Validation.pipe';
 @Controller('boards')
 export class BoardsController {
   constructor(private boardsService: BoardsService) {}
@@ -43,7 +44,7 @@ export class BoardsController {
   @Patch(':/id/status')
   updateBoardStatus(
     @Param('id') id: string,
-    @Body('status') status: BoardStatus,
+    @Body('status', BoardStatusValidationPipe) status: BoardStatus,
   ) {
     return this.updateBoardStatus(id, status);
   }
